@@ -9,7 +9,7 @@ Google Home reply: 'The 14:17 to Wimbledon is On time'
 
 ## Behind the scene
 
-The 'when is the next train to Wimbledon' is a trigger in ifttt Google Assistant (the 'IF This' part)
+The 'when is the next train to Wimbledon' is a trigger in ifttt Google Assistant (the 'IF This' part).
 The 'Then That' is a Maker Webhooks Web Request, that point to a public URL. This is what triggers the nodejs application to perform my custom action.
 
 The nodejs application is in 4 parts:
@@ -21,6 +21,7 @@ The nodejs application is in 4 parts:
 ## Things to be aware of:
 1. The request must be done over https with a security token of some sort. I do have an apache server in between to take care of that aspect. 
 2. The dlna url is hard coded. This should be queried from the sqlite database.
+3. Do not forget to copy/rename the sample_config.yaml file to config.yaml and add your own values.
 
-
+Special thanks to @thibauts for his castv2-client library that makes it all possible.
 

@@ -1,0 +1,9 @@
+---
+# Server port
+server:
+    port: <port for this service> 
+chromecast:
+    ip: <IP Address of the chromecase/Google Home speaker to play the massage to>
+nationalrail:
+    # Get this token by registring at: https://realtime.nationalrail.co.uk/OpenLDBWSRegistration/Registration
+    accessToken: <National Rail API token>

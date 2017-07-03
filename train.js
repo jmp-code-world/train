@@ -8,14 +8,18 @@ var fs = require('fs');
 var Client = require('castv2-client').Client;
 var DefaultMediaReceiver = require('castv2-client').DefaultMediaReceiver;
 var yaml = require('js-yaml');
+var nodeID3 = require('node-id3');
+// var UPNPServer = require("upnpserver");
 
 // Get default config, or throw exception on error
 try {
-   var config = yaml.safeLoad(fs.readFileSync('./config.yaml', 'utf8'));
-   console.log(config.chromecast.ip);
+   var config = yaml.safeLoad(fs.readFileSync( require('path').resolve( __dirname,'./config.yaml'), 'utf8'));
 } catch (e) {
     console.log(e);
 }
+
+// Server static files form the current working location
+app.use(express.static( __dirname ))
 
 app.get('/', function (req, res) {
     var train_msg;
@@ -49,22 +53,31 @@ app.get('/', function (req, res) {
                 });
 
                 ttsres.on('end', function(){
-                    fs.writeFile('./train_msg.mp3', mp3data, 'binary', function(err){
+                    train_msg_file = config.nationalrail.media_dir + '/' + config.nationalrail.media_file ; 
+                    fs.writeFile( train_msg_file , mp3data, 'binary', function(err){
                         if (err) throw err;
                         console.log('File saved.');
+                        // Update ID3 tags.
+                        nodeID3.write( config.nationalrail.media_tags, train_msg_file );
+                        console.log('Tags updated.');
                         // This is where we inject the chromecast call
                         // chromecast -H 192.168.1.22 play http://192.168.1.6:8200/MediaItems/312.mp3
+                        // chromecast -H 192.168.1.22 play http://192.168.1.6:10293/cds/content/14
                         var client = new Client();
                         client.connect(config.chromecast.ip, function() {
                             console.log('Connected, launching playback ...');
                             client.launch(DefaultMediaReceiver, function(err, player) {
                                 var media = {
-                                    contentId: 'http://192.168.1.6:8200/MediaItems/312.mp3'
+                                    contentId: 'http://192.168.1.6:' + config.server.port + '/' + train_msg_file,
+                                    contentType: 'audio/mpeg3',
+                                    streamType: 'BUFFERED'
+
                                 };
                                 player.on('status', function(status) {
                                     console.log('status broadcast playerState=%s', status.playerState);
                                 });
                                 player.load(media, { autoplay: true }, function(err, status) {
+                                    console.log('err: ' + err );
                                     console.log('media loaded playerState=%s', status.playerState);
                                 });
                             });

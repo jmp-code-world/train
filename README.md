@@ -23,5 +23,5 @@ The nodejs application is in 4 parts:
 2. The dlna url is hard coded. This should be queried from the sqlite database.
 3. Do not forget to copy/rename the sample_config.yaml file to config.yaml and add your own values.
 
-Special thanks to @thibauts for his castv2-client library that makes it all possible.
+Special thanks to [thibauts](https://twitter.com/thibautseguy) for his [castv2-client](https://github.com/thibauts/node-castv2-client) library that makes it all possible.
 

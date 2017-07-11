@@ -1,0 +1,14 @@
+[Unit]
+Description=Report train departures to Google Home
+Documentation=https://github.com/jmp-code-world/train
+After=network.target
+
+[Service]
+Type=simple
+User=jm
+WorkingDirectory=/home/jm/Documents/node/train
+ExecStart=/home/jm/.nvm/versions/node/v6.10.2/bin/node /home/jm/Documents/node/train/train.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

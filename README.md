@@ -15,8 +15,8 @@ The 'Then That' is a Maker Webhooks Web Request, that point to a public URL. Thi
 The nodejs application is in 4 parts:
 1. Query the national rail database to find the next train on my route. This returns a json block with various data.
 2. Convert the json block into a simple text string message.
-3. Use google TTS to conver the message into a mp3 file. Store the mp3 file into a location that is monitored by a small dlna server.
-4. Send a request to the chromecast in my Google Home speaker to play the mp3 message.
+3. Use google TTS to conver the message into a mp3 file. Store the mp3 file in a subdirectory to make it read by the nodejs static file web server.
+4. Send a request to the chromecast in my Google Home speaker to play the mp3 message. The Google Speaker IP address is automatically detected.
 
 ## Things to be aware of:
 1. The request must be done over https with a security token of some sort. I do have an apache server in between to take care of that aspect. 

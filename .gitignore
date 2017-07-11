@@ -40,3 +40,4 @@ jspm_packages
 train.js.working_copy
 config.yaml
 train_msg.mp3
+*.mp3

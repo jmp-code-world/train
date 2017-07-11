@@ -16,12 +16,11 @@ The nodejs application is in 4 parts:
 1. Query the national rail database to find the next train on my route. This returns a json block with various data.
 2. Convert the json block into a simple text string message.
 3. Use google TTS to conver the message into a mp3 file. Store the mp3 file into a location that is monitored by a small dlna server.
-4. Send a request to the chromecast in my Google Home speaker to play the mp3 message from the dlna server.
+4. Send a request to the chromecast in my Google Home speaker to play the mp3 message.
 
 ## Things to be aware of:
 1. The request must be done over https with a security token of some sort. I do have an apache server in between to take care of that aspect. 
-2. The dlna url is hard coded. This should be queried from the sqlite database.
-3. Do not forget to copy/rename the sample_config.yaml file to config.yaml and add your own values.
+2. Do not forget to copy/rename the sample_config.yaml file to config.yaml and add your own values.
 
 Special thanks to [thibauts](https://twitter.com/thibautseguy) for his [castv2-client](https://github.com/thibauts/node-castv2-client) library that makes it all possible.
 

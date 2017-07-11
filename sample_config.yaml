@@ -1,9 +1,31 @@
+# This file needs to be renamed
+# config.yaml before running the
+# train.js application
 ---
-# Server port
+# Configuration
 server:
-    port: <port for this service> 
+    # public port for this service.
+    port: 
 chromecast:
+    name: 'Google-Home'
+    # The IP will be dynamically updated when the Gogle Speaker restarts.
     ip: <IP Address of the chromecase/Google Home speaker to play the message to>
 nationalrail:
     # Get this token by registring at: https://realtime.nationalrail.co.uk/OpenLDBWSRegistration/Registration
     accessToken: <National Rail API token>
+    # Directory where the file will be saved
+    media_dir: 'media'
+    media_file: 'train_msg.mp3'
+    from_station:
+      # Replace below with station code and name
+      code: mds
+      name: Morden South
+    to_station:
+      # Replace below with station code and name
+      code: wim
+      name: Wimbledon
+    media_tags:
+      # MP3 tags
+      title: 'Train Announcment'
+      artist: 'British Rail'
+      album: 'Station name'

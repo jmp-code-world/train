@@ -10,7 +10,6 @@ var DefaultMediaReceiver = require('castv2-client').DefaultMediaReceiver;
 var yaml = require('js-yaml');
 var nodeID3 = require('node-id3');
 var os = require( 'os' );
-var unixTime = require('unix-time');
 var util= require('util');
 
 // Get default config, or throw exception on error
@@ -67,7 +66,6 @@ app.get('/', function (req, res) {
     request( train_update_url , function(error,response,body) {
 
         var trainServices = JSON.parse(body);
-        timestamp = unixTime(new Date());
 
         train_msg='';
 
@@ -107,9 +105,10 @@ app.get('/', function (req, res) {
             });
 
             ttsres.on('end', function(){
-                train_msg_file = config.nationalrail.media_dir + '/' + timestamp + '-' + config.nationalrail.media_file ; 
+                train_msg_file = config.nationalrail.media_dir + '/' + config.nationalrail.media_file ; 
                 fs.writeFile( train_msg_file , mp3data, 'binary', function(err){
-                    if (err) throw err;
+                    if (err) 
+                        throw err;
                     console.log('File ' + train_msg_file + ' saved.');
                     // Update ID3 tags.
                     nodeID3.write( config.nationalrail.media_tags, train_msg_file );

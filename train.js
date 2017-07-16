@@ -74,12 +74,16 @@ app.get('/', function (req, res) {
             if (i==0) {
                 if (service.etd=='On time') {
                     train_msg+="The " + service.std + " service to " + config.nationalrail.to_station.name + " is " + service.etd + ". ";
+                } else if (service.etd=='Cancelled') {
+                    train_msg+="The " + service.std + " service to " + config.nationalrail.to_station.name + " is cancelled.";
                 } else {
                     train_msg+="The " + service.std + " service to " + config.nationalrail.to_station.name + " is delayed, and will be at " + service.etd + ". ";
                 }
             } else {
                 if (service.etd=='On time') {
                     train_msg+="Next the " + service.std + " service is " + service.etd + ".";
+                } else if (service.etd=='Cancelled') {
+                    train_msg+="Next the " + service.std + " service is cancelled.";
                 } else {
                     train_msg+="Next the " + service.std + " service is delayed, and will be at " + service.etd + ".";
                 }
